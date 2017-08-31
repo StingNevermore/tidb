@@ -3,7 +3,7 @@ package session
 import (
 	"github.com/pingcap/tidb/mysql"
 	"github.com/pingcap/tidb/util"
-	"github.com/pingcap/tidb/xprotocol/x-packetio"
+	"github.com/pingcap/tidb/xprotocol/xpacketio"
 )
 
 type authMysql41State int32
@@ -18,14 +18,14 @@ const (
 type saslMysql41Auth struct {
 	m_state authMysql41State
 	m_salt  []byte
-	pkt		*x_packetio.XPacketIO
+	pkt		*xpacketio.XPacketIO
 }
 
 func (spa *saslMysql41Auth) handleStart(mechanism *string, data []byte, initial_response []byte) *Response {
 	r := Response{}
 
 	if spa.m_state == S_starting {
-		spa.m_salt = util.RandomBuf(mysql.SCRAMBLE_LENGTH)
+		spa.m_salt = util.RandomBuf(mysql.ScrambleLength)
 		r.data = string(spa.m_salt)
 		r.status = Ongoing
 		r.errCode = 0
