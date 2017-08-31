@@ -160,7 +160,7 @@ func NewServer(cfg *config.Config, driver IDriver, serverType int) (*Server, err
 
 	// Init rand seed for randomBuf()
 	rand.Seed(time.Now().UTC().UnixNano())
-	log.Infof("Server run %s Protocol Listen at [%s]", protocol, s.cfg.Addr)
+	log.Infof("Server run %s Protocol Listen at [%s]", protocol, addr)
 	return s, nil
 }
 
